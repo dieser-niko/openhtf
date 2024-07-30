@@ -145,41 +145,6 @@ INSTALL_REQUIRES = [
 ]
 
 
-class PyTestCommand(test):  # pylint: disable=missing-class-docstring
-  # Derived from
-  # https://github.com/chainreactionmfg/cara/blob/master/setup.py
-  user_options = [
-      ('pytest-args=', None, 'Arguments to pass to py.test'),
-      ('pytest-cov=', None, 'Enable coverage. Choose output type: '
-       'term, html, xml, annotate, or multiple with comma separation'),
-  ]
-
-  def initialize_options(self):
-    test.initialize_options(self)
-    self.pytest_args = ['test']
-    self.pytest_cov = None
-
-  def finalize_options(self):
-    test.finalize_options(self)
-    self.test_args = []
-    self.test_suite = True
-
-  def run_tests(self):
-    self.run_command('build_proto')
-
-    import pytest  # pylint: disable=g-import-not-at-top
-    cov = []
-    if self.pytest_cov is not None:
-      outputs = []
-      for output in self.pytest_cov.split(','):
-        outputs.extend(['--cov-report', output])
-      cov = ['--cov', 'openhtf'] + outputs
-
-    sys.argv = [sys.argv[0]]
-    print('invoking pytest.main with %s' % (self.pytest_args + cov))
-    sys.exit(pytest.main(self.pytest_args + cov))
-
-
 _README_PATH = os.path.join(
         os.path.dirname(os.path.realpath(__file__)), 'README.md')
 with open(_README_PATH, 'rb') as fp:
@@ -206,7 +171,6 @@ setup(
     cmdclass={
         'build_proto': BuildProtoCommand,
         'clean': CleanCommand,
-        'test': PyTestCommand,
     },
     install_requires=INSTALL_REQUIRES,
     extras_require={
