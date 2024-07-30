@@ -26,7 +26,6 @@ from distutils.command.clean import clean
 from distutils.cmd import Command
 from setuptools import find_packages
 from setuptools import setup
-from setuptools.command.test import test
 
 
 class CleanCommand(clean):
