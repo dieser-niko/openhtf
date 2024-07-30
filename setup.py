@@ -181,11 +181,4 @@ setup(
         'serial_collection_plug': ['pyserial>=3.3.0',],
         'examples': ['pandas>=0.22.0',],
     },
-    tests_require=[
-        'absl-py>=0.10.0',
-        'pandas>=0.22.0',
-        'numpy',
-        'pytest>=2.9.2',
-        'pytest-cov>=2.2.1',
-    ],
 )
